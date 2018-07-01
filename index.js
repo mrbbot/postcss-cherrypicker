@@ -56,6 +56,8 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
 
             if (selectors.length === 0)
                 rule.remove();
+            else
+                rule.selectors = selectors;
         });
 
         root.walkAtRules(atRule => {
