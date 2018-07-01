@@ -1,0 +1,35 @@
+body {
+    background-color: #333333;
+    color: white;
+}
+
+h1 {
+    text-decoration: underline;
+    font-weight: bolder;
+}
+
+.my-class, .something-else {
+    color: dodgerblue;
+}
+
+.my-class:hover {
+    color: deepskyblue;
+}
+
+.something-else::before {
+    content: "";
+}
+
+.unused {
+    color: mediumspringgreen;
+}
+
+@media(max-width: 600px) {
+    .unused {
+        color: rebeccapurple;
+    }
+
+    .something-else {
+        color: indianred;
+    }
+}

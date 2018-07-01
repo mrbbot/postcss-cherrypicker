@@ -1,0 +1,9 @@
+.something-else {
+    color: indianred;
+}
+
+@media(max-width: 600px) {
+    .unused {
+        color: rebeccapurple;
+    }
+}
