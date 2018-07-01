@@ -50,8 +50,17 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
                 const colonIndex = selector.indexOf(':');
                 if (colonIndex !== -1)
                     selector = selector.substring(0, colonIndex);
-                return markupFiles.some(file =>
-                    file.check(file.data, selector));
+
+                try {
+                    return markupFiles.some(file =>
+                        file.check(file.data, selector));
+                } catch (e) {
+                    console.log(
+                        '\x1b[33m%s\x1b[0m',
+                        `Cherrypicker: ${e} (selector was not removed)`
+                    );
+                    return true;
+                }
             });
 
             if (selectors.length === 0)
