@@ -1,8 +1,9 @@
-const { getDirs, readFile } = require('../utils');
+const { getDirs, readFile } = require('../src/utils');
 const path = require('path');
 const postcss = require('postcss');
 const plugin = require('../');
 
+// eslint-disable-next-line no-control-regex
 const lineFeedRegex = new RegExp('\r\n', 'g');
 
 const casesPath = path.resolve(__dirname, 'cases');
@@ -20,7 +21,7 @@ for (const testCase of getDirs(casesPath)) {
         )).replace(lineFeedRegex, '\n');
 
         const opts = {
-            markupFiles: [path.resolve(basePath, 'markup')]
+            files: [path.resolve(basePath, 'files')]
         };
 
         return postcss([ plugin(opts) ]).process(input, { from: undefined })

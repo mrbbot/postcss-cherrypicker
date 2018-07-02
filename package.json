@@ -28,11 +28,12 @@
     "jest": "^22.4.2"
   },
   "scripts": {
-    "test": "jest && eslint *.js",
+    "test": "jest && eslint **/*.js",
     "test:dev": "jest --watch"
   },
+  "main": "src/index.js",
   "files": [
-    "./*.js"
+    "src"
   ],
   "eslintConfig": {
     "extends": "eslint-config-postcss/es5",
