@@ -1,5 +1,5 @@
 const thing = <div>
-    <h1 className="title" onClick={alert("Hi")}>Title<span id="hi"></span></h1>
+    <h1 id="title" onClick={alert("Hi")}>Title<span className="hi"></span></h1>
     <h2 className="subtitle light">Hi</h2>
 </div>
 

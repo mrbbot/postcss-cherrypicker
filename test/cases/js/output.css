@@ -1,0 +1,23 @@
+#title {
+    color: red;
+}
+
+.subtitle {
+    color: blue;
+}
+
+.light {
+    color: white;
+}
+
+#title .hi {
+    color: yellow;
+}
+
+.number {
+    color: purple;
+}
+
+span {
+    text-decoration: underline;
+}
