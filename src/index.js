@@ -14,7 +14,7 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
         const files = (await map(
             await globby(globs),
             async file => {
-                const content = await readFile(file);
+                const content = await readFile(file, { encoding: 'utf-8' });
                 const ext = file.substring(
                     file.lastIndexOf('.') + 1
                 );

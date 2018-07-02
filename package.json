@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/mrbbot/postcss-cherrypicker",
   "dependencies": {
+    "@babel/parser": "^7.0.0-beta.51",
     "asyncro": "^3.0.0",
     "cheerio": "^1.0.0-rc.2",
     "globby": "^8.0.1",
@@ -25,7 +26,8 @@
     "@types/cheerio": "^0.22.8",
     "eslint": "^4.18.2",
     "eslint-config-postcss": "^2.0.2",
-    "jest": "^22.4.2"
+    "jest": "^22.4.2",
+    "js-beautify": "^1.7.5"
   },
   "scripts": {
     "test": "jest && eslint **/*.js",
@@ -36,7 +38,7 @@
     "src"
   ],
   "eslintConfig": {
-    "extends": "eslint-config-postcss/es5",
+    "extends": "eslint-config-postcss",
     "env": {
       "jest": true
     },
