@@ -20,9 +20,7 @@ for (const testCase of getDirs(casesPath)) {
             { encoding: 'utf-8' }
         )).replace(lineFeedRegex, '\n');
 
-        const opts = {
-            files: [path.resolve(basePath, 'files')]
-        };
+        const opts = require(`./cases/${testCase}/options`)(basePath);
 
         return postcss([ plugin(opts) ]).process(input, { from: undefined })
             .then(result => {
