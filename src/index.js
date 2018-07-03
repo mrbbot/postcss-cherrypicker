@@ -3,6 +3,7 @@ const { reduce, map } = require('asyncro');
 const postcss = require('postcss');
 const globby = require('globby');
 const checkers = require('./checkers');
+const containsChecker = require("./checkers/contains");
 
 // noinspection JSCheckFunctionSignatures
 module.exports = postcss.plugin('postcss-cherrypicker', opts => {
@@ -54,16 +55,7 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
                 try {
                     return files.some(file => {
                         if (file.data.options.contains) {
-                            const splitSelector = selector.split(/[ >+~]/);
-                            let checkSelector =
-                                splitSelector[splitSelector.length - 1];
-                            if (
-                                checkSelector.startsWith('.') ||
-                                checkSelector.startsWith('#')
-                            ) {
-                                checkSelector = checkSelector.substring(1);
-                            }
-                            return file.data.content.includes(checkSelector);
+                            return containsChecker(file.data, selector);
                         } else {
                             return file.check(file.data, selector);
                         }
