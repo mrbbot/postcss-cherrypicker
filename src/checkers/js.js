@@ -53,22 +53,8 @@ module.exports = (content, options) => {
                         ]
                     })
                 )
-            ) : content
+            ) : null
         },
-        check: (data, selector) => {
-            if (parseJs) {
-                return data.$(selector).length > 0;
-            } else {
-                const splitSelector = selector.split(/[ >+~]/);
-                let checkSelector = splitSelector[splitSelector.length - 1];
-                if (
-                    checkSelector.startsWith('.') ||
-                    checkSelector.startsWith('#')
-                ) {
-                    checkSelector = checkSelector.substring(1);
-                }
-                return data.$.includes(checkSelector);
-            }
-        }
+        check: (data, selector) => parseJs ? data.$(selector).length > 0 : true
     };
 };

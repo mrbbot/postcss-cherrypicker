@@ -32,10 +32,16 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
                     match.lastIndexOf('.') + 1
                 );
 
-                if (ext in checkers)
-                    return checkers[ext](content, glob.options);
-                else
+                if (ext in checkers) {
+                    const checker = checkers[ext](content, glob.options);
+                    if (!checker) return false;
+                    checker.data = checker.data || {};
+                    checker.data.options = glob.options;
+                    checker.data.content = content;
+                    return checker;
+                } else {
                     return false;
+                }
             }));
         })).filter(file => file);
 
@@ -46,8 +52,22 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
                     selector = selector.substring(0, colonIndex);
 
                 try {
-                    return files.some(file =>
-                        file.check(file.data, selector));
+                    return files.some(file => {
+                        if (file.data.options.contains) {
+                            const splitSelector = selector.split(/[ >+~]/);
+                            let checkSelector =
+                                splitSelector[splitSelector.length - 1];
+                            if (
+                                checkSelector.startsWith('.') ||
+                                checkSelector.startsWith('#')
+                            ) {
+                                checkSelector = checkSelector.substring(1);
+                            }
+                            return file.data.content.includes(checkSelector);
+                        } else {
+                            return file.check(file.data, selector);
+                        }
+                    });
                 } catch (e) {
                     console.log(
                         '\x1b[33m%s\x1b[0m',
