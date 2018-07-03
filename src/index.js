@@ -3,7 +3,7 @@ const { reduce, map } = require('asyncro');
 const postcss = require('postcss');
 const globby = require('globby');
 const checkers = require('./checkers');
-const containsChecker = require("./checkers/contains");
+const containsChecker = require('./checkers/contains');
 
 // noinspection JSCheckFunctionSignatures
 module.exports = postcss.plugin('postcss-cherrypicker', opts => {
