@@ -1,7 +1,7 @@
 const parser = require('@babel/parser');
 const cheerio = require('cheerio');
 
-function parseJsx(node) {
+function findMarkup(node) {
     let result = '';
 
     if (node.type === 'JSXElement') {
@@ -28,10 +28,10 @@ function parseJsx(node) {
         .forEach(value => {
             if (Array.isArray(value))
                 value.forEach(child => {
-                    result += parseJsx(child);
+                    result += findMarkup(child);
                 });
             else
-                result += parseJsx(value);
+                result += findMarkup(value);
         });
 
     if (node.type === 'JSXElement') {
@@ -41,17 +41,34 @@ function parseJsx(node) {
     return result;
 }
 
-module.exports = content => ({
-    data: {
-        $: cheerio.load(
-            parseJsx(
-                parser.parse(content, {
-                    plugins: [
-                        'jsx'
-                    ]
-                })
-            )
-        )
-    },
-    check: (data, selector) => data.$(selector).length > 0
-});
+module.exports = (content, options) => {
+    const parseJs = !options.contains;
+    return {
+        data: {
+            $: parseJs ? cheerio.load(
+                findMarkup(
+                    parser.parse(content, {
+                        plugins: [
+                            'jsx'
+                        ]
+                    })
+                )
+            ) : content
+        },
+        check: (data, selector) => {
+            if (parseJs) {
+                return data.$(selector).length > 0;
+            } else {
+                const splitSelector = selector.split(/[ >+~]/);
+                let checkSelector = splitSelector[splitSelector.length - 1];
+                if (
+                    checkSelector.startsWith('.') ||
+                    checkSelector.startsWith('#')
+                ) {
+                    checkSelector = checkSelector.substring(1);
+                }
+                return data.$.includes(checkSelector);
+            }
+        }
+    };
+};

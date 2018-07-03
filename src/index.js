@@ -1,5 +1,5 @@
 const { readFile } = require('./utils');
-const { map } = require('asyncro');
+const { reduce, map } = require('asyncro');
 const postcss = require('postcss');
 const globby = require('globby');
 const checkers = require('./checkers');
@@ -10,21 +10,34 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
     let globs = opts.files || [];
     globs = Array.isArray(opts.files) ? globs : [globs];
 
+    globs = globs.map(glob => {
+        if (glob.constructor.name === 'String') {
+            return {
+                path: glob,
+                options: {}
+            };
+        } else {
+            // noinspection JSUndefinedPropertyAssignment
+            glob.options = glob.options || {};
+            return glob;
+        }
+    });
+
     return async root => {
-        const files = (await map(
-            await globby(globs),
-            async file => {
-                const content = await readFile(file, { encoding: 'utf-8' });
-                const ext = file.substring(
-                    file.lastIndexOf('.') + 1
+        const files = (await reduce(globs, async (list = [], glob) => {
+            const matches = await globby(glob.path);
+            return list.concat(await map(matches, async match => {
+                const content = await readFile(match, { encoding: 'utf-8' });
+                const ext = match.substring(
+                    match.lastIndexOf('.') + 1
                 );
 
                 if (ext in checkers)
-                    return checkers[ext](content);
+                    return checkers[ext](content, glob.options);
                 else
                     return false;
-            }
-        )).filter(file => !!file);
+            }));
+        })).filter(file => file);
 
         root.walkRules(rule => {
             const selectors = rule.selectors.filter(selector => {

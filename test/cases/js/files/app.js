@@ -1,3 +1,4 @@
+/* eslint-disable */
 const thing = <div>
     <h1 id="title" onClick={alert("Hi")}>Title<span className="hi"></span></h1>
     <h2 className="subtitle light">Hi</h2>

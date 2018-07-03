@@ -1,0 +1,35 @@
+.hello {
+    color: red;
+}
+
+span {
+    color: orange;
+}
+
+#random-id {
+    color: yellow;
+}
+
+.random-class {
+    color: green;
+}
+
+.nested {
+    color: blue;
+}
+
+.hello .nested {
+    color: indigo;
+}
+
+.hello > .nested {
+    color: violet;
+}
+
+div + h1 {
+    color: red;
+}
+
+h2~div {
+    color: orange;
+}
