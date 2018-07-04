@@ -7,6 +7,16 @@
 [ci-img]:  https://travis-ci.org/mrbbot/postcss-cherrypicker.svg
 [ci]:      https://travis-ci.org/mrbbot/postcss-cherrypicker
 
+## Installation
+
+Install it using npm or Yarn.
+
+```sh
+npm install -g cherrypicker-cli
+
+yarn global add cherrypicker-cli
+```
+
 ## Usage
 
 Cherrypicker works by checking every CSS selector against your markup and removing any that don't match
