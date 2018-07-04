@@ -14,12 +14,9 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
     globs = globs.map(glob => {
         if (glob.constructor.name === 'String') {
             return {
-                path: glob,
-                options: {}
+                path: glob
             };
         } else {
-            // noinspection JSUndefinedPropertyAssignment
-            glob.options = glob.options || {};
             return glob;
         }
     });
@@ -34,10 +31,10 @@ module.exports = postcss.plugin('postcss-cherrypicker', opts => {
                 );
 
                 if (ext in checkers) {
-                    const checker = checkers[ext](content, glob.options);
+                    const checker = checkers[ext](content, glob);
                     if (!checker) return false;
                     checker.data = checker.data || {};
-                    checker.data.options = glob.options;
+                    checker.data.options = glob;
                     checker.data.content = content;
                     return checker;
                 } else {

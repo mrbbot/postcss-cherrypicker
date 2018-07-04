@@ -4,9 +4,7 @@ module.exports = basePath => ({
     files: [
         {
             path: path.resolve(basePath, 'files'),
-            options: {
-                contains: true
-            }
+            contains: true
         }
     ]
 });
