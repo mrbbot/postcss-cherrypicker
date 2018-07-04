@@ -12,9 +12,9 @@
 Install it using npm or Yarn.
 
 ```sh
-npm install -g cherrypicker-cli
+npm install postcss-cherrypicker
 
-yarn global add cherrypicker-cli
+yarn add postcss-cherrypicker
 ```
 
 ## Usage
