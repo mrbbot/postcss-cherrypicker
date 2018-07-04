@@ -3,8 +3,7 @@ const path = require('path');
 
 const promisify = f => (...args) =>
     new Promise((resolve, reject) =>
-        // eslint-disable-next-line no-useless-call
-        f.apply(null, [
+        f.apply(this, [
             ...args,
             (err, result) => err ? reject(err) : resolve(result)
         ])
