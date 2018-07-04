@@ -2,6 +2,8 @@
 
 [PostCSS] plugin to reduce the size of CSS files by removing unused styles from them.
 
+**THIS IS STILL A WORK IN PROGRESS!!! OFTEN TOO MANY STYLES WILL BE REMOVED MAKING A PAGE UNUSABLE!!!**
+
 [PostCSS]: https://github.com/postcss/postcss
 [Globby]:  https://github.com/sindresorhus/globby
 [ci-img]:  https://travis-ci.org/mrbbot/postcss-cherrypicker.svg
